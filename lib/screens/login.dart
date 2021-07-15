@@ -1,127 +1,164 @@
 import 'package:ecommerce/constants.dart';
+import 'package:ecommerce/screens/welcome.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
+  LoginScreen({Key? key}) : super(key: key);
+
   @override
   LoginScreenState createState() => LoginScreenState();
 }
 
 class LoginScreenState extends State<LoginScreen> {
-  // String email;
-  // String password;
-
+  String email = "";
+  String password = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        color: kBackgroundColor,
-        child: ListView(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 60.0),
-              transform: Matrix4.translationValues(0, -75, 0),
-              child: Image.asset(
-                'asset/logos/logo_login.png',
-              ),
-            ),
-            Container(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 0,
-                      top: 0,
-                      right: 0,
-                      bottom: 10,
+        body: Container(
+            color: kYellowPrimary,
+            child: ListView(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: IconButton(
+                        icon: const Icon(
+                          Icons.arrow_back_outlined,
+                          color: Colors.black,
+                          size: 30.0,
+                        ),
+                        onPressed: () {
+                          navigateToWelcome(context);
+                        },
+                      ),
                     ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 50, bottom: 50),
+                  child: Container(
+                    height: 80,
                     child: Text(
-                      "HAZ CRECER TU NEGOCIO",
+                      "BIENVENIDO",
                       style: kLargeBiggestTitleStyle,
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Text(
-                    "¡Le ayudaremos a hacer crecer su negocio utilizando servicios en línea!",
-                    style: kNormalTitleStyle,
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
-            Container(
-              child: Padding(
-                padding: EdgeInsets.only(
-                  top: 30,
-                  left: 0,
-                  right: 0,
-                  bottom: 0
                 ),
-                child:Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        InkWell(
-                          child: Container(
-                            child: Text(
-                              'Iniciar sesión',
-                              style:
-                                  kCalloutLabelStyle.copyWith(color: Colors.white),
-                            ),
-                            alignment: Alignment.center,
+                SizedBox(
+                  height: 15.0,
+                ),
+                Container(
+                    height: 130,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      child: Column(
+                        children: [
+                          Container(
                             decoration: BoxDecoration(
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(14.0),
-                                gradient: LinearGradient(colors: [
-                                  Color(0xFF000000),
-                                  Color(0xFF000000),
-                                ])),
-                            height: 57.0,
-                            width: MediaQuery.of(context).size.width * 0.3,
-                          ),
-                          onTap: () {
-                           // ir a pagina
-                            // Navigator.of(context).pushReplacement(
-
-                            // MaterialPageRoute<MenuPage>(
-                            //     builder: (_) =>
-                            // )
-                            // );
-                          },
-                        ),
-                        Padding(padding: EdgeInsets.only(
-                          left: 30
-                        )),
-                        InkWell(
-                          child: Container(
-                            child: Text(
-                              'Registrarse',
-                              style:
-                                  kCalloutLabelStyle.copyWith(color: Colors.white),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: kShadowColor,
+                                      offset: Offset(0, 12.0),
+                                      blurRadius: 16.0)
+                                ]),
+                            child: Column(
+                              children: [
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      top: 5.0, right: 16.0, left: 16.0),
+                                  child: TextField(
+                                    cursorColor: kPrimaryLabelColor,
+                                    decoration: InputDecoration(
+                                        icon: Icon(
+                                          Icons.email,
+                                          color: Color(0xFF000000),
+                                          size: 20,
+                                        ),
+                                        border: InputBorder.none,
+                                        hintText: "Correo electronico",
+                                        hintStyle: kLoginInputTextStyle),
+                                    style: kLoginInputTextStyle.copyWith(
+                                        color: Colors.black),
+                                    onChanged: (textEntered) {
+                                      email = textEntered;
+                                    },
+                                  ),
+                                ),
+                                Divider(
+                                  color: Colors.grey[600],
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: 5.0, right: 16.0, left: 16.0),
+                                  child: TextField(
+                                    cursorColor: kPrimaryLabelColor,
+                                    obscureText: true,
+                                    decoration: InputDecoration(
+                                        icon: Icon(
+                                          Icons.lock,
+                                          color: Color(0xFF000000),
+                                          size: 20.0,
+                                        ),
+                                        border: InputBorder.none,
+                                        hintText: "Constraseña",
+                                        hintStyle: kLoginInputTextStyle),
+                                    style: kLoginInputTextStyle.copyWith(
+                                        color: Colors.black),
+                                    onChanged: (textEntered) {
+                                      password = textEntered;
+                                      print(password);
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14.0),
-                                gradient: LinearGradient(colors: [
-                                  Color(0xFF000000),
-                                  Color(0xFF000000),
-                                ])),
-                            height: 57.0,
-                            width: MediaQuery.of(context).size.width * 0.3,
                           ),
-                          onTap: () {
-                           //ir a pagina 
-                          },
+                        ],
+                      ),
+                    )),
+                SizedBox(
+                  height: 15.0,
+                ),
+                Column(
+                  children: [
+                    InkWell(
+                      child: Container(
+                        child: Text(
+                          'INICIAR SESIÓN',
+                          style:
+                              kCalloutLabelStyle.copyWith(color: Colors.white),
                         ),
-                      ],
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14.0),
+                            gradient: LinearGradient(colors: [
+                              Color(0xFF000000),
+                              Color(0xFF000000),
+                            ])),
+                        height: 57.0,
+                        width: MediaQuery.of(context).size.width * 0.7,
+                      ),
+                      onTap: () {
+                        //ir a pagina
+                      },
                     ),
-              ],
+                  ],
                 )
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+              ],
+            )));
   }
+}
+
+void navigateToWelcome(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+        builder: (context) => WelcomeScreen(), fullscreenDialog: false),
+  );
 }

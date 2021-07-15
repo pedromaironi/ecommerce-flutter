@@ -15,9 +15,9 @@ const kBlackColor = Color(0xFF000000);
 // Text Styles
 var kLargeBiggestTitleStyle = TextStyle(
     fontSize: 40.0,
-    fontWeight: FontWeight.bold,
+    fontWeight: FontWeight.w900,
     color: kBlackColor,
-    fontFamily: Platform.isIOS ? 'muliblack' : null,
+    fontFamily: Platform.isIOS ? 'muliblack' : 'muliblack',
     decoration: TextDecoration.none,
     );
 
