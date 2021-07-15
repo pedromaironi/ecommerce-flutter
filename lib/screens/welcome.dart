@@ -1,4 +1,5 @@
 import 'package:ecommerce/constants.dart';
+import 'package:ecommerce/screens/register.dart';
 import 'package:flutter/material.dart';
 
 import 'login.dart';
@@ -114,6 +115,7 @@ class WelcomeScreenState extends State<WelcomeScreen> {
                           ),
                           onTap: () {
                            //ir a pagina 
+                           navigateToRegister(context);
                           },
                         ),
                       ],
@@ -137,10 +139,10 @@ void navigateToLogin(BuildContext context) {
   );
 }
 
-// void navigateToRegister(BuildContext context) {
-//   Navigator.push(
-//     context,
-//     MaterialPageRoute(
-//         builder: (context) => RegisterScreen(), fullscreenDialog: false),
-//   );
-// }
+void navigateToRegister(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+        builder: (context) => RegisterScreen(), fullscreenDialog: false),
+  );
+}

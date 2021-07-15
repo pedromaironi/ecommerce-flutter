@@ -1,4 +1,5 @@
 import 'package:ecommerce/constants.dart';
+import 'package:ecommerce/screens/home.dart';
 import 'package:ecommerce/screens/welcome.dart';
 import 'package:flutter/material.dart';
 
@@ -146,6 +147,7 @@ class LoginScreenState extends State<LoginScreen> {
                       ),
                       onTap: () {
                         //ir a pagina
+                        navigateToHome(context);
                       },
                     ),
                   ],
@@ -160,5 +162,13 @@ void navigateToWelcome(BuildContext context) {
     context,
     MaterialPageRoute(
         builder: (context) => WelcomeScreen(), fullscreenDialog: false),
+  );
+}
+
+void navigateToHome(BuildContext context) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+        builder: (context) => HomeScreen(), fullscreenDialog: false),
   );
 }
