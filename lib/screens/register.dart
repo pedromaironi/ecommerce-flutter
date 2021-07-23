@@ -1,12 +1,11 @@
 import 'package:ecommerce/screens/home.dart';
-import 'package:ecommerce/screens/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../constants.dart';
 
 class RegisterScreen extends StatefulWidget {
-  RegisterScreen({Key? key}) : super(key: key);
+  RegisterScreen({Key key}) : super(key: key);
 
   @override
   RegisterScreenState createState() => RegisterScreenState();
@@ -213,7 +212,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                             activeColor: Colors.black,
                             onChanged: (value) {
                               setState(() {
-                                agree = value!;
+                                agree = value;
                                 print(value);
                               });
                             },

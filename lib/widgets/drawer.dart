@@ -1,14 +1,29 @@
+import 'dart:io';
 
 import 'package:ecommerce/components/sidebar_row.dart';
+import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/model/sidebar.dart';
+import 'package:ecommerce/screens/configuration.dart';
+import 'package:ecommerce/screens/home.dart';
+import 'package:ecommerce/screens/profile_screen.dart';
+import 'package:ecommerce/screens/search.dart';
 import 'package:flutter/material.dart';
 
-import '../constants.dart';
+class ConfigurationDrawer extends StatefulWidget {
+  const ConfigurationDrawer({Key key}) : super(key: key);
 
-class SidebarScreen extends StatelessWidget {
+  @override
+  _ConfigurationDrawerState createState() => _ConfigurationDrawerState();
+}
+
+class _ConfigurationDrawerState extends State<ConfigurationDrawer> {
+  String name;
+  String username;
+
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Drawer(
+        child: Container(
       decoration: BoxDecoration(
         color: kSidebarBackgroundColor,
         borderRadius: BorderRadius.only(
@@ -54,26 +69,66 @@ class SidebarScreen extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.08,
             ),
-            SidebarRow(
-              item: sidebarItem[0],
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                      fullscreenDialog: false),
+                );
+              },
+              child: SidebarRow(
+                item: sidebarItem[0],
+              ),
             ),
             SizedBox(
               height: 32.0,
             ),
-            SidebarRow(
-              item: sidebarItem[1],
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SearchScreen(),
+                      fullscreenDialog: false),
+                );
+              },
+              child: SidebarRow(
+                item: sidebarItem[1],
+              ),
             ),
             SizedBox(
               height: 32.0,
             ),
-            SidebarRow(
-              item: sidebarItem[2],
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProfileScreen(),
+                      fullscreenDialog: false),
+                );
+              },
+              child: SidebarRow(
+                item: sidebarItem[2],
+              ),
             ),
             SizedBox(
               height: 32.0,
             ),
-            SidebarRow(
-              item: sidebarItem[3],
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => configurationScreen(),
+                      fullscreenDialog: false),
+                );
+              },
+              child: SidebarRow(
+                item: sidebarItem[3],
+              ),
             ),
             SizedBox(
               height: 32.0,
@@ -97,7 +152,6 @@ class SidebarScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
-
 }

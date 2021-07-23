@@ -38,7 +38,7 @@ var kLargeTitleStyle = TextStyle(
   decoration: TextDecoration.none,
 );
 var kTitle1Style = TextStyle(
-  fontSize: 22.0,
+  fontSize: 18.0,
   fontWeight: FontWeight.bold,
   color: kPrimaryLabelColor,
   fontFamily: Platform.isIOS ? 'SF Pro Text' : null,
@@ -60,7 +60,7 @@ var kTitle2Style = TextStyle(
 );
 var kHeadlineLabelStyle = TextStyle(
   fontSize: 17.0,
-  fontWeight: FontWeight.w800,
+  fontWeight: FontWeight.w700,
   color: kPrimaryLabelColor,
   fontFamily: 'SF Pro Text',
   decoration: TextDecoration.none,
@@ -132,7 +132,7 @@ Widget _customSignInButton(String title, Color buttonColor, Function onPressed,
         backgroundColor: MaterialStateProperty.all(buttonColor),
         padding:
             MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12.0))),
-    onPressed: onPressed as void Function()?,
+    onPressed: onPressed as void Function(),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
@@ -157,14 +157,14 @@ Widget _customSignInButton(String title, Color buttonColor, Function onPressed,
 
 class SignInWithEmail extends StatelessWidget {
   final Function onPressed;
-  final Color? buttonColor;
-  final Color? fontColor;
-  final double? fontSize;
-  final String? title;
+  final Color buttonColor;
+  final Color fontColor;
+  final double fontSize;
+  final String title;
 
   const SignInWithEmail(
-      {Key? key,
-      required this.onPressed,
+      {Key key,
+      @required this.onPressed,
       this.buttonColor,
       this.fontColor,
       this.title,

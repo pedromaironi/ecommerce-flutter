@@ -5,7 +5,7 @@ import '../constants.dart';
 
 
 class SidebarRow extends StatelessWidget {
-  SidebarRow({required this.item});
+  SidebarRow({@required this.item});
 
   final SidebarItem item;
 

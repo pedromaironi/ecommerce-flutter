@@ -16,7 +16,7 @@ class SidebarItem {
 }
 var sidebarItem = [
   SidebarItem(
-    title: "Home",
+    title: "Inicio",
     background: LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
@@ -31,29 +31,29 @@ var sidebarItem = [
     ),
   ),
   SidebarItem(
-    title: "Courses",
+    title: "Buscar",
     background: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [Color(0xFFFA7d75), Color(0xFFC23D61)]),
     icon: Icon(
-      Platform.isAndroid ? Icons.library_books : CupertinoIcons.book_solid,
+      Platform.isAndroid ? Icons.search : CupertinoIcons.search,
       color: Colors.white,
     ),
   ),
   SidebarItem(
-    title: "Billing",
+    title: "Mi cuenta",
     background: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [Color(0xFFFAD64A), Color(0xFFEA880F)]),
     icon: Icon(
-      Platform.isAndroid ? Icons.credit_card : CupertinoIcons.creditcard,
+      Platform.isAndroid ? Icons.person : CupertinoIcons.person,
       color: Colors.white,
     ),
   ),
   SidebarItem(
-    title: "Settings",
+    title: "Configuración",
     background: LinearGradient(
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,

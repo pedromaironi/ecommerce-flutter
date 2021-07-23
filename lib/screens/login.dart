@@ -4,7 +4,7 @@ import 'package:ecommerce/screens/welcome.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key key}) : super(key: key);
 
   @override
   LoginScreenState createState() => LoginScreenState();
