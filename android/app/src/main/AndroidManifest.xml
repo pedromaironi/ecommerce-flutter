@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.ecommerce">
+    package="com.pedromaironi.ecommerce">
    <application
         android:label="ecommerce"
         android:icon="@mipmap/ic_launcher">

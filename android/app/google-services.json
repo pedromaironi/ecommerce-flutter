@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "946019474686",
+    "project_id": "ecommerce-b2f27",
+    "storage_bucket": "ecommerce-b2f27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:946019474686:android:a056cbe0cc1bf8398299af",
+        "android_client_info": {
+          "package_name": "com.pedromaironi.ecommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "946019474686-h9lsb6125n6jdj4vj6vrq98plna2us9a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBz28V4CWpyNGYK7wQG_Oag7_wyTduV9N0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "946019474686-h9lsb6125n6jdj4vj6vrq98plna2us9a.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "946019474686-hj6gqcv2sna965830mc5b15r4uk6p99n.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pedromaironi.ecommerce"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
