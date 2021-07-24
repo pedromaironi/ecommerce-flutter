@@ -1,7 +1,12 @@
 import 'package:ecommerce/constants.dart';
 import 'package:ecommerce/screens/home.dart';
 import 'package:ecommerce/screens/welcome.dart';
+import 'package:ecommerce/services/authservice.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class LoginScreen extends StatefulWidget {
   LoginScreen({Key key}) : super(key: key);
@@ -13,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 class LoginScreenState extends State<LoginScreen> {
   String email = "";
   String password = "";
+  AuthService auth;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +37,7 @@ class LoginScreenState extends State<LoginScreen> {
                           color: Colors.black,
                           size: 30.0,
                         ),
-                        onPressed: () {
+                        onPressed: () async {
                           navigateToWelcome(context);
                         },
                       ),
@@ -107,13 +113,13 @@ class LoginScreenState extends State<LoginScreen> {
                                           size: 20.0,
                                         ),
                                         border: InputBorder.none,
-                                        hintText: "Constraseña",
+                                        hintText: "Contraseña",
                                         hintStyle: kLoginInputTextStyle),
                                     style: kLoginInputTextStyle.copyWith(
                                         color: Colors.black),
                                     onChanged: (textEntered) {
                                       password = textEntered;
-                                      print(password);
+                                      // print(password);
                                     },
                                   ),
                                 ),
@@ -145,9 +151,21 @@ class LoginScreenState extends State<LoginScreen> {
                         height: 57.0,
                         width: MediaQuery.of(context).size.width * 0.7,
                       ),
-                      onTap: () {
+                      onTap: () async {
+                        try {
+                          await _auth.signInWithEmailAndPassword(
+                              email: email, password: password);
+                          navigateToHome(context);
+                        } on FirebaseAuthException catch (err) {
+                          print("asdasd");
+                          if (err.code == "user-not-found" ||
+                              err.code == null) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                content: (Text(
+                                    "Este usuario no existe, por favor registre una nueva cuenta."))));
+                          }
+                        }
                         //ir a pagina
-                        navigateToHome(context);
                       },
                     ),
                   ],
@@ -155,6 +173,24 @@ class LoginScreenState extends State<LoginScreen> {
               ],
             )));
   }
+}
+
+showAlertDialog(BuildContext context) {
+  // Widget okButton = Container(
+  //   child: Text(
+  //     'INICIAR SESIÓN',
+  //     style: kCalloutLabelStyle.copyWith(color: Colors.white),
+  //   ),
+  //   alignment: Alignment.center,
+  //   decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.circular(14.0),
+  //       gradient: LinearGradient(colors: [
+  //         Color(0xFF000000),
+  //         Color(0xFF000000),
+  //       ])),
+  //   height: 57.0,
+  //   width: MediaQuery.of(context).size.width * 0.7,
+  // );
 }
 
 void navigateToWelcome(BuildContext context) {

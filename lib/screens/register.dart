@@ -1,8 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecommerce/screens/home.dart';
+import 'package:ecommerce/services/authservice.dart';
+import 'package:ecommerce/services/firestoreservice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 import '../constants.dart';
+
+
+final snackBar = SnackBar(content: Text('Usuario registrado correctamente'));
 
 class RegisterScreen extends StatefulWidget {
   RegisterScreen({Key key}) : super(key: key);
@@ -12,8 +18,18 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class RegisterScreenState extends State<RegisterScreen> {
+  String name = "";
   String email = "";
   String password = "";
+  String passwordConfirm = "";
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final nameController = TextEditingController();
+  final confirmPasswordController = TextEditingController();
+
+  FirebaseFirestoreService firestoreService;
+  AuthService authService;
   // By defaut, the checkbox is unchecked and "agree" is "false"
   bool agree = false;
 
@@ -21,6 +37,16 @@ class RegisterScreenState extends State<RegisterScreen> {
   // void _doSomething(){
   // Do something
   // }
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    nameController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,6 +105,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                           padding: EdgeInsets.only(
                               top: 5.0, right: 16.0, left: 16.0),
                           child: TextField(
+                            controller: nameController,
                             cursorColor: kPrimaryLabelColor,
                             decoration: InputDecoration(
                                 icon: Icon(
@@ -92,7 +119,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                             style: kLoginInputTextStyle.copyWith(
                                 color: Colors.black),
                             onChanged: (textEntered) {
-                              email = textEntered;
+                              name = textEntered;
                             },
                           ),
                         ),
@@ -113,6 +140,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                             padding: EdgeInsets.only(
                                 top: 5.0, right: 16.0, left: 16.0),
                             child: TextField(
+                              controller: emailController,
                               cursorColor: kPrimaryLabelColor,
                               decoration: InputDecoration(
                                   icon: Icon(
@@ -148,6 +176,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                             padding: EdgeInsets.only(
                                 top: 5.0, right: 16.0, left: 16.0),
                             child: TextField(
+                              controller: passwordController,
                               cursorColor: kPrimaryLabelColor,
                               obscureText: true,
                               decoration: InputDecoration(
@@ -162,7 +191,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                               style: kLoginInputTextStyle.copyWith(
                                   color: Colors.black),
                               onChanged: (textEntered) {
-                                email = textEntered;
+                                password = textEntered;
                               },
                             ),
                           ),
@@ -184,6 +213,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                             padding: EdgeInsets.only(
                                 top: 5.0, right: 16.0, left: 16.0),
                             child: TextField(
+                              controller: confirmPasswordController,
                               cursorColor: kPrimaryLabelColor,
                               obscureText: true,
                               decoration: InputDecoration(
@@ -198,7 +228,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                               style: kLoginInputTextStyle.copyWith(
                                   color: Colors.black),
                               onChanged: (textEntered) {
-                                email = textEntered;
+                                passwordConfirm = textEntered;
                               },
                             ),
                           ),
@@ -220,9 +250,10 @@ class RegisterScreenState extends State<RegisterScreen> {
                           Expanded(
                             child: Container(
                               height: 30,
-                              child: Text("He leido y acepto los Términos y Condiciones de uso del sitio y la politica de privacidad de Datos.",
-                              style: kSearchTextStyle,
-                              textAlign: TextAlign.start,
+                              child: Text(
+                                "He leido y acepto los Términos y Condiciones de uso del sitio y la politica de privacidad de Datos.",
+                                style: kSearchTextStyle,
+                                textAlign: TextAlign.start,
                               ),
                             ),
                           )
@@ -250,9 +281,75 @@ class RegisterScreenState extends State<RegisterScreen> {
                       height: 57.0,
                       width: MediaQuery.of(context).size.width * 0.7,
                     ),
-                    onTap: () {
+                    onTap: () async {
                       //ir a pagina
-                    navigateToWelcome(context);
+                      try {
+                        // checkIfEmailInUse(email).then((value) => print("email in use: $value"));
+                        if (nameController.text.isEmpty ||
+                            emailController.text.isEmpty ||
+                            passwordController.text.isEmpty ||
+                            confirmPasswordController.text.isEmpty) {
+                          showEmptyFields(context);
+                          // print("a");
+                        } else {
+                          if (passwordController.text !=
+                              confirmPasswordController.text) {
+                            showPasswordEquals(context);
+                          } else {
+                            // await getDataOfUser(emailController.text).then(
+                            // (data)=>{
+                            //   print("data")
+                            //     }
+                            // );
+                            await firestoreService.createUserWithEmail(
+                                    name, email, password, context)
+                                .then((value) => showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      return AlertDialog(
+                                        title:
+                                            Text("Cuenta creada correctamente"),
+                                        // content: Text("asdas"),
+                                        // actions: [
+                                        //   Padding(
+                                        //     padding: EdgeInsets.only(
+                                        //         top: 45.0,
+                                        //         left: 30.0,
+                                        //         right: 30.0),
+                                        //     child: InkWell(
+                                        //       child: Container(
+                                        //         child: Text(
+                                        //           "Home",
+                                        //           style: kCalloutLabelStyle
+                                        //               .copyWith(
+                                        //                   color: Colors.white),
+                                        //         ),
+                                        //         alignment: Alignment.center,
+                                        //         decoration: BoxDecoration(
+                                        //             borderRadius:
+                                        //                 BorderRadius.circular(
+                                        //                     14.0),
+                                        //             gradient:
+                                        //                 LinearGradient(colors: [
+                                        //               Color(0xFF000000),
+                                        //               Color(0xFF000000),
+                                        //             ])),
+                                        //         height: 57.0,
+                                        //         width: MediaQuery.of(context)
+                                        //                 .size
+                                        //                 .width *
+                                        //             0.7,
+                                        //       ),
+                                        //     ),
+                                        //   )
+                                        // ],
+                                      );
+                                    }));
+                            await authService.createUserWithEmails(email, password, name);
+                          }
+                        }
+                        // navigateToWelcome(context);
+                      } catch (e) {}
                     },
                   ),
                 )
@@ -268,3 +365,40 @@ void navigateToWelcome(BuildContext context) {
         builder: (context) => HomeScreen(), fullscreenDialog: false),
   );
 }
+
+
+
+Future<void> showEmptyFields(context) {
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: AlertDialog(
+            title: Text(
+              "Ingrese los campos correctamente",
+              style: kTitle1Style,
+            ),
+            // content: Text(err.message),
+          ),
+        );
+      });
+}
+
+Future<void> showPasswordEquals(context) {
+  return showDialog(
+      context: context,
+      builder: (context) {
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: AlertDialog(
+            title: Text(
+              "Las contraseñas no son iguales",
+              style: kTitle1Style,
+            ),
+            // content: Text(err.message),
+          ),
+        );
+      });
+}
+
